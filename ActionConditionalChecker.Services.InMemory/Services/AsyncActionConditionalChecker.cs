@@ -19,8 +19,7 @@ namespace ActionConditionalChecker.Services.InMemory
             var now = DateTime.UtcNow;
 
             foreach (var action in ActionsCheckerHub.Actions
-                .Where(x => x.GetType().Equals(typeof(AsyncAccessCondition<TRequest>)))
-                .Select(x => (AsyncAccessCondition<TRequest>)x)
+                .Select(x => x as AsyncAccessCondition<TRequest>)
                 .Where(x => x != null && 
                     (x.WaitTillActionCompletion || (!x.WaitTillActionCompletion && x.ExpiresAtUtc > now))))
             {
@@ -39,8 +38,7 @@ namespace ActionConditionalChecker.Services.InMemory
             var now = DateTime.UtcNow;
 
             foreach (var action in ActionsCheckerHub.Actions
-                .Where(x => x.GetType().Equals(typeof(AsyncAccessCondition<TRequest>)))
-                .Select(x => (AsyncAccessCondition<TRequest>)x)
+                .Select(x => x as AsyncAccessCondition<TRequest>)
                 .Where(x => x != null &&
                     (x.WaitTillActionCompletion || (!x.WaitTillActionCompletion && x.ExpiresAtUtc > now))))
             {
@@ -59,8 +57,7 @@ namespace ActionConditionalChecker.Services.InMemory
                 var now = DateTime.UtcNow;
 
                 foreach(var action in ActionsCheckerHub.Actions
-                    .Where(x => x.GetType().Equals(typeof(AsyncAccessCondition<TRequest>)))
-                    .Select(x => (AsyncAccessCondition<TRequest>)x)
+                    .Select(x => x as AsyncAccessCondition<TRequest>)
                     .Where(x => x != null &&
                         (x.WaitTillActionCompletion || (!x.WaitTillActionCompletion && x.ExpiresAtUtc > now))))
                 {
@@ -72,16 +69,21 @@ namespace ActionConditionalChecker.Services.InMemory
                     }
                 }
 
-                if (!ActionsCheckerHub.Actions.TryAdd(actionInfo.AccessCondition))
-                {
-                    return OperationResult<ActionState>.Failed()
-                        .WithMessage("Could not register the action info!");
-                }
+                ActionsCheckerHub.Actions.Add(actionInfo.AccessCondition);
             }
 
             try
             {
                 await actionInfo.Action.Invoke(actionInfo.AccessCondition.Request);
+
+                if (actionInfo.AccessCondition.WaitTillActionCompletion)
+                {
+                    lock (actionInfo.Lock)
+                    {
+                        ActionsCheckerHub.Actions.Remove(actionInfo.AccessCondition);
+                    }
+                }
+
                 return OperationResult<ActionState>.Succeeded(
                     new ActionState(
                         actionInfo.AccessCondition.ExpiresAtUtc,
@@ -102,8 +104,7 @@ namespace ActionConditionalChecker.Services.InMemory
                 var now = DateTime.UtcNow;
 
                 foreach(var action in ActionsCheckerHub.Actions
-                    .Where(x => x.GetType().Equals(typeof(AsyncAccessCondition<TRequest>)))
-                    .Select(x => (AsyncAccessCondition<TRequest>)x)
+                    .Select(x => x as AsyncAccessCondition<TRequest>)
                     .Where(x => x != null &&
                         (x.WaitTillActionCompletion || (!x.WaitTillActionCompletion && x.ExpiresAtUtc > now))))
                 {
@@ -115,16 +116,21 @@ namespace ActionConditionalChecker.Services.InMemory
                     }
                 }
 
-                if (!ActionsCheckerHub.Actions.TryAdd(actionInfo.AccessCondition))
-                {
-                    return OperationResult<Tuple<ActionState, TResponse>>.Failed()
-                        .WithMessage("Could not register the action info!");
-                }
+                ActionsCheckerHub.Actions.Add(actionInfo.AccessCondition);
             }
 
             try
             {
                 var response = await actionInfo.Action.Invoke(actionInfo.AccessCondition.Request);
+
+                if (actionInfo.AccessCondition.WaitTillActionCompletion)
+                {
+                    lock (actionInfo.Lock)
+                    {
+                        ActionsCheckerHub.Actions.Remove(actionInfo.AccessCondition);
+                    }
+                }
+
                 return Result.OperationResult.Succeeded(
                     new Tuple<ActionState, TResponse>(
                     new ActionState(
@@ -147,8 +153,7 @@ namespace ActionConditionalChecker.Services.InMemory
                 var now = DateTime.UtcNow;
 
                 foreach(var action in ActionsCheckerHub.Actions
-                    .Where(x => x.GetType().Equals(typeof(AsyncAccessCondition<TRequest>)))
-                    .Select(x => (AsyncAccessCondition<TRequest>)x)
+                    .Select(x => x as AsyncAccessCondition<TRequest>)
                     .Where(x => x != null &&
                         (x.WaitTillActionCompletion || (!x.WaitTillActionCompletion && x.ExpiresAtUtc > now))))
                 {
@@ -158,17 +163,22 @@ namespace ActionConditionalChecker.Services.InMemory
                             .WithMessage("Skipped!");
                     }
 
-                    if (!ActionsCheckerHub.Actions.TryAdd(actionInfo.AccessCondition))
-                    {
-                        return OperationResult<ActionState>.Failed()
-                            .WithMessage("Could not register the action info!");
-                    }
+                    ActionsCheckerHub.Actions.Add(actionInfo.AccessCondition);
                 }
             }
 
             try
             {
                 await actionInfo.Action.Invoke(actionInfo.AccessCondition.Request);
+
+                if (actionInfo.AccessCondition.WaitTillActionCompletion)
+                {
+                    lock (actionInfo.Lock)
+                    {
+                        ActionsCheckerHub.Actions.Remove(actionInfo.AccessCondition);
+                    }
+                }
+
                 return OperationResult<ActionState>.Succeeded(
                     new ActionState(
                         actionInfo.AccessCondition.ExpiresAtUtc,
@@ -189,8 +199,7 @@ namespace ActionConditionalChecker.Services.InMemory
                 var now = DateTime.UtcNow;
 
                 foreach(var action in ActionsCheckerHub.Actions
-                    .Where(x => x.GetType().Equals(typeof(AsyncAccessCondition<TRequest>)))
-                    .Select(x => (AsyncAccessCondition<TRequest>)x)
+                    .Select(x => x as AsyncAccessCondition<TRequest>)
                     .Where(x => x != null &&
                         (x.WaitTillActionCompletion || (!x.WaitTillActionCompletion && x.ExpiresAtUtc > now))))
                 {
@@ -202,16 +211,21 @@ namespace ActionConditionalChecker.Services.InMemory
                     }
                 }
 
-                if (!ActionsCheckerHub.Actions.TryAdd(actionInfo.AccessCondition))
-                {
-                    return OperationResult<Tuple<ActionState, TResponse>>.Failed()
-                        .WithMessage("Could not register the action info!");
-                }
+                ActionsCheckerHub.Actions.Add(actionInfo.AccessCondition);
             }
 
             try
             {
                 var response = await actionInfo.Action.Invoke(actionInfo.AccessCondition.Request);
+
+                if (actionInfo.AccessCondition.WaitTillActionCompletion)
+                {
+                    lock (actionInfo.Lock)
+                    {
+                        ActionsCheckerHub.Actions.Remove(actionInfo.AccessCondition);
+                    }
+                }
+
                 return Result.OperationResult.Succeeded(
                     new Tuple<ActionState, TResponse>(
                     new ActionState(
@@ -234,8 +248,7 @@ namespace ActionConditionalChecker.Services.InMemory
                 var now = DateTime.UtcNow;
 
                 foreach(var action in ActionsCheckerHub.Actions
-                    .Where(x => x.GetType().Equals(typeof(AsyncAccessCondition<TRequest>)))
-                    .Select(x => (AsyncAccessCondition<TRequest>)x)
+                    .Select(x => x as AsyncAccessCondition<TRequest>)
                     .Where(x => x != null &&
                         (x.WaitTillActionCompletion || (!x.WaitTillActionCompletion && x.ExpiresAtUtc > now))))
                 {
@@ -245,16 +258,21 @@ namespace ActionConditionalChecker.Services.InMemory
                     }
                 }
 
-                if (!ActionsCheckerHub.Actions.TryAdd(actionInfo.AccessCondition))
-                {
-                    return OperationResult<ActionState>.Failed()
-                        .WithMessage("Could not register the action info!");
-                }
+                ActionsCheckerHub.Actions.Add(actionInfo.AccessCondition);
             }
 
             try
             {
                 await actionInfo.Action.Invoke(actionInfo.AccessCondition.Request);
+
+                if (actionInfo.AccessCondition.WaitTillActionCompletion)
+                {
+                    lock (actionInfo.Lock)
+                    {
+                        ActionsCheckerHub.Actions.Remove(actionInfo.AccessCondition);
+                    }
+                }
+
                 return OperationResult<ActionState>.Succeeded(
                     new ActionState(
                         actionInfo.AccessCondition.ExpiresAtUtc,
@@ -275,8 +293,7 @@ namespace ActionConditionalChecker.Services.InMemory
                 var now = DateTime.UtcNow;
 
                 foreach(var action in ActionsCheckerHub.Actions
-                    .Where(x => x.GetType().Equals(typeof(AsyncAccessCondition<TRequest>)))
-                    .Select(x => (AsyncAccessCondition<TRequest>)x)
+                    .Select(x => x as AsyncAccessCondition<TRequest>)
                     .Where(x => x != null &&
                         (x.WaitTillActionCompletion || (!x.WaitTillActionCompletion && x.ExpiresAtUtc > now)))) 
                 {
@@ -286,16 +303,21 @@ namespace ActionConditionalChecker.Services.InMemory
                     }
                 }
 
-                if (!ActionsCheckerHub.Actions.TryAdd(actionInfo.AccessCondition))
-                {
-                    return OperationResult<Tuple<ActionState, TResponse>>.Failed()
-                        .WithMessage("Could not register the action info!");
-                }
+                ActionsCheckerHub.Actions.Add(actionInfo.AccessCondition);
             }
 
             try
             {
                 var response = await actionInfo.Action.Invoke(actionInfo.AccessCondition.Request);
+
+                if (actionInfo.AccessCondition.WaitTillActionCompletion)
+                {
+                    lock (actionInfo.Lock)
+                    {
+                        ActionsCheckerHub.Actions.Remove(actionInfo.AccessCondition);
+                    }
+                }
+
                 return Result.OperationResult.Succeeded(
                     new Tuple<ActionState, TResponse>(
                     new ActionState(

@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <PackageId>ActionConditionalChecker.Services.InMemory</PackageId>
-    <Version>1.0.0-alpha</Version>
+    <Version>2.0.0</Version>
     <Authors>Ganușceac Vlad</Authors>
     <Product>ActionConditionalChecker.Services.InMemory</Product>
     <Title>ActionConditionalChecker.Services.InMemory</Title>
@@ -33,12 +33,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ActionConditionalChecker.Contracts" Version="1.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.1" />
+    <PackageReference Include="ActionConditionalChecker.Contracts" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="Microsoft.NETCore.App" Version="1.0.16" />
+    <PackageReference Update="Microsoft.NETCore.App" Version="2.0.9" />
   </ItemGroup>
 
 </Project>
