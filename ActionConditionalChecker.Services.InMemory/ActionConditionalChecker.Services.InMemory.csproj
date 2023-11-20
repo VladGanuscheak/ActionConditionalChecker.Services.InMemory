@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <PackageId>ActionConditionalChecker.Services.InMemory</PackageId>
-    <Version>2.0.0</Version>
+    <Version>2.2.0</Version>
     <Authors>Ganușceac Vlad</Authors>
     <Product>ActionConditionalChecker.Services.InMemory</Product>
     <Title>ActionConditionalChecker.Services.InMemory</Title>
@@ -19,7 +19,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>logo.png</PackageIcon>
     <PackageIconUrl />
-    <PackageReleaseNotes>Migrated to .Net Core 2.0</PackageReleaseNotes>
+    <PackageReleaseNotes>Migrated to .Net Core 2.2</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,12 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ActionConditionalChecker.Contracts" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="ActionConditionalChecker.Contracts" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="Microsoft.NETCore.App" Version="2.0.9" />
+    <PackageReference Update="Microsoft.NETCore.App" Version="2.1.30" />
   </ItemGroup>
 
 </Project>
