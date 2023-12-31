@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 namespace ActionConditionalChecker.Services.Web.Controllers
 {
     [Route("[controller]/[action]")]
-    public class AsyncTestController : Controller
+    public class AsyncTestController(IAsyncActionConditionalChecker checker) : Controller
     {
-        private readonly IAsyncActionConditionalChecker _checker;
-        private readonly object _lock = new object();
-
-        public AsyncTestController(IAsyncActionConditionalChecker checker)
-        {
-            _checker = checker;
-        }
+        private readonly IAsyncActionConditionalChecker _checker = checker;
+        private readonly object _lock = new();
 
         public async Task<IActionResult> Index()
         {
