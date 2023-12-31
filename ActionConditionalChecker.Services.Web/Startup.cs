@@ -23,7 +23,7 @@ namespace ActionConditionalChecker.Services.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddActionConditionalCheckerInstaller();
-            services.AddMvc();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
