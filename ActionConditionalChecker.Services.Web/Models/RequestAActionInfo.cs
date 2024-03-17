@@ -4,11 +4,8 @@ using System;
 
 namespace ActionConditionalChecker.Services.Web.Models
 {
-    public class RequestAActionInfo : ActionInfo<RequestA>
+    public class RequestAActionInfo(Action<RequestA> action, AccessCondition<RequestA> accessCondition, object actionLock) 
+        : ActionInfo<RequestA>(action, accessCondition, actionLock)
     {
-        public RequestAActionInfo(Action<RequestA> action, AccessCondition<RequestA> accessCondition, object actionLock) 
-            : base(action, accessCondition, actionLock)
-        {
-        }
     }
 }

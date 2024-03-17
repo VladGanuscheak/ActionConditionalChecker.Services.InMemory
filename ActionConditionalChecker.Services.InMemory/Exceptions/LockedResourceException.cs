@@ -5,13 +5,8 @@ using System;
 namespace ActionConditionalChecker.Services.InMemory.Exceptions
 {
     /// <inheritdoc/>
-    public class LockedResourceException<TRequest> : ActionConditionalException<TRequest>
+    public class LockedResourceException<TRequest>(BaseAccessCondition<TRequest> accessCondition) : ActionConditionalException<TRequest>(accessCondition)
     {
-        public LockedResourceException(BaseAccessCondition<TRequest> accessCondition) 
-            : base(accessCondition)
-        {
-        }
-
         protected override string ConstructExceptionMessage(BaseAccessCondition<TRequest> accessCondition)
         {
             if (accessCondition.WaitTillActionCompletion)

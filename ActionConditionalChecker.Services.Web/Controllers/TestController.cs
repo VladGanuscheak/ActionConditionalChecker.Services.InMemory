@@ -1,13 +1,9 @@
 ﻿using ActionConditionalChecker.Contracts;
-using ActionConditionalChecker.Contracts.ActionInfo;
 using ActionConditionalChecker.Services.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ActionConditionalChecker.Services.Web.Controllers
 {

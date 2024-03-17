@@ -7,57 +7,9 @@ using System.Linq;
 using ActionConditionalChecker.Services.InMemory.Hub;
 using Result = OperationResult;
 using ActionConditionalChecker.Services.InMemory.Exceptions;
-using System.Threading.Tasks;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace ActionConditionalChecker.Services.InMemory
 {
-    public class Test : IProducerConsumerCollection<object>
-    {
-        public int Count => throw new NotImplementedException();
-
-        public bool IsSynchronized => throw new NotImplementedException();
-
-        public object SyncRoot => throw new NotImplementedException();
-
-        public void CopyTo(object[] array, int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(Array array, int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerator<object> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        public object[] ToArray()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool TryAdd(object item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool TryTake(out object item)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public class ActionConditionalChecker : IActionConditionalChecker
     {
         /// <inheritdoc/>
