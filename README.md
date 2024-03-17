@@ -1,4 +1,4 @@
-# ActionConditionalChecker.Contracts
+# ActionConditionalChecker.Services.InMemory
 
 Implements contracts for both synchronous and asynchronous condition checkers in order to find out if the action may be executed under specific circumstances.
 The corresponding conditions/rules are persisted into a blocking collection and are available till the persisted request/action has been terminated.
