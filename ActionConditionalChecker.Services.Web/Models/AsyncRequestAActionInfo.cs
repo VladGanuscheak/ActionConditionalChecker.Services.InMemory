@@ -5,11 +5,8 @@ using System.Threading.Tasks;
 
 namespace ActionConditionalChecker.Services.Web.Models
 {
-    public class AsyncRequestAActionInfo : AsyncActionInfo<RequestA>
+    public class AsyncRequestAActionInfo(Func<RequestA, Task> action, AsyncAccessCondition<RequestA> accessCondition, object actionLock) 
+        : AsyncActionInfo<RequestA>(action, accessCondition, actionLock)
     {
-        public AsyncRequestAActionInfo(Func<RequestA, Task> action, AsyncAccessCondition<RequestA> accessCondition, object actionLock) 
-            : base(action, accessCondition, actionLock)
-        {
-        }
     }
 }

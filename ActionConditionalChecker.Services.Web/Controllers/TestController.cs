@@ -1,28 +1,19 @@
 ﻿using ActionConditionalChecker.Contracts;
-using ActionConditionalChecker.Contracts.ActionInfo;
 using ActionConditionalChecker.Services.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ActionConditionalChecker.Services.Web.Controllers
 {
     [AllowAnonymous]
     [Route("[controller]/[action]")]
-    public class TestController : Controller
+    public class TestController(IActionConditionalChecker checker) : Controller
     {
-        private readonly IActionConditionalChecker _checker;
+        private readonly IActionConditionalChecker _checker = checker;
 
-        private static readonly object _lock = new object();
-
-        public TestController(IActionConditionalChecker checker)
-        {
-            _checker = checker;
-        }
+        private static readonly object _lock = new();
 
         public IActionResult Index()
         {
