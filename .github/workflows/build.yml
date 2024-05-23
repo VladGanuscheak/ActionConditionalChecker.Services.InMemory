@@ -50,7 +50,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"VladGanuscheak_ActionConditionalChecker.Contracts" /o:"vlad-ganuscheak" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"VladGanuscheak_ActionConditionalChecker.Services.InMemory" /o:"vlad-ganuscheak" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet restore .\ActionConditionalChecker.Services.InMemory\ActionConditionalChecker.Services.InMemory.sln
           dotnet build .\ActionConditionalChecker.Services.InMemory\ActionConditionalChecker.Services.InMemory.sln --configuration Release
           dotnet test .\ActionConditionalChecker.Services.InMemory\ActionConditionalChecker.Services.InMemory.sln --no-build
